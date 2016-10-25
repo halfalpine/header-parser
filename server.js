@@ -5,11 +5,12 @@ var app = express();
 var requestIp = require('request-ip');
 
 app.use('/', function(req, res, next) {
-  var ip = req.headers['x-forwarded-for'] 
-  var lang = req.headers["accept-language"]
-  var ua = req.headers['user-agent']
-  res.send(ip, lang, ua)
-  console.log(ip,lang, ua)
+  var obj = {}
+  obj.ip = req.headers['x-forwarded-for'] 
+  obj.lang = req.headers["accept-language"]
+  obj.ua = req.headers['user-agent'].match(/\(([^)]+)\)/)[1]
+  res.send(obj)
+  console.log(obj)
 })
 
 
